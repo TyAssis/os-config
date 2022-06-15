@@ -1,0 +1,8 @@
+{
+    "window.zoomLevel": 2,
+    "editor.tabSize": 2,
+    "explorer.confirmDragAndDrop": false,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    }
+}
