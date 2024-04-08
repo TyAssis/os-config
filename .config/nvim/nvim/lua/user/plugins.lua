@@ -89,7 +89,6 @@ return packer.startup(function(use)
   -- DAP
   use "mfussenegger/nvim-dap"
   use "leoluz/nvim-dap-go"
-  use "leoluz/nvim-dap-go"
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
