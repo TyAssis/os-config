@@ -33,10 +33,24 @@ local function vsplit_preview()
   nvim_tree_api.tree.focus()
 end
 
+local function on_attach(bufnr)
+  local api = require "nvim-tree.api"
+
+  api.config.mappings.default_on_attach(bufnr)
+
+  local opts = { noremap = true, silent = true }
+
+  vim.keymap.set("n", "l", edit_or_open, opts)
+  vim.keymap.set("n", "L", vsplit_preview, opts)
+  vim.keymap.set("n", "h", nvim_tree_api.tree.close, opts)
+  vim.keymap.set("n", "H", nvim_tree_api.tree.collapse_all, opts)
+end
+
 nvim_tree.setup {
   disable_netrw = true,
   hijack_netrw  = true,
   hijack_cursor = true,
+  on_attach = on_attach,
   diagnostics = {
     enable = true,
     icons = {
@@ -66,17 +80,4 @@ nvim_tree.setup {
     }
   }
 }
-
-local function on_attach(bufnr)
-  local api = require "nvim-tree.api"
-
-  api.config.mappings.default_on_attach(bufnr)
-
-  local opts = { noremap = true, silent = true }
-
-  vim.keymap.set("n", "l", edit_or_open, opts)
-  vim.keymap.set("n", "L", vsplit_preview, opts)
-  vim.keymap.set("n", "h", nvim_tree_api.tree.close, opts)
-  vim.keymap.set("n", "H", nvim_tree_api.tree.collapse_all, opts)
-end
 

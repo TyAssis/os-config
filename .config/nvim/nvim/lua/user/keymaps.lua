@@ -65,6 +65,11 @@ keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
+-- Fast save
+keymap("i", "<C-s>", "<C-o>:w<CR>", opts)
+keymap("n", "<C-s>", ":w<CR>", opts)
+
+-- Telescope
 -- keymap("n", "<leader>f", "<cmd>Telescope find_files<cr>", opts)
 keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", opts)
 keymap("n", "<c-t>", "<cmd>Telescope live_grep<cr>", opts)
@@ -75,3 +80,8 @@ vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
 -- Tree
 vim.keymap.set("n", "<leader>x", ":NvimTreeToggle<CR>", opts)
 
+-- DAP
+keymap("n", "<leader>dt", ":DapUiToggle<CR>" ,opts)
+keymap("n", "<leader>db", ":DapToggleBreakpoint<CR>" ,opts)
+keymap("n", "<leader>dc", ":DapContinue<CR>" ,opts)
+keymap("n", "<leader>dr", ":lua require('dapui').open({ reset = true })<CR>" ,opts)
