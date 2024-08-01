@@ -56,10 +56,14 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+   PS1="${debian_chroot:+($debian_chroot)}\[\e[92m\]\w \[\e[94m\]\$(parse_git_branch)\[\e[00m\]$ "
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+   PS1='${debian_chroot:+($debian_chroot)}\w \$(parse_git_branch)$ '
 fi
 unset color_prompt force_color_prompt
 
@@ -124,17 +128,22 @@ export PATH="/usr/java/jre1.8.0_361/bin:$PATH"
 export PATH="/usr/local/lib:$PATH"
 export PATH="/home/taylon/bin:$PATH"
 export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:/opt/nvim-linux64/bin"
+
+# sudo 
+alias sudo='sudo env PATH=$PATH'
+export SUDO_ASKPASS=/usr/bin/ssh-askpass
 
 # preferred editor
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
+  SUDO_EDITOR=:/opt/nvim-linux64/bin/nvim
 else
   export EDITOR='nvim'
+  export SUDO_EDITOR=/opt/nvim-linux64/bin/nvim
 fi
 
 # aliases
-alias company-token="~/scripts/gupy-login.sh company"
-alias candidate-token="~/scripts/gupy-login.sh candidate"
 alias mk=microk8s.kubectl
 alias k=kubectl
 alias kn="kubens"
@@ -142,6 +151,9 @@ alias kx="kubectx"
 alias tg="terragrunt"
 alias tf="terraform"
 alias docker-compose="docker compose"
+alias v="nvim"
+alias vc="cd ~/.config/nvim && v"
+alias sv="sudoedit"
 
 # hardware
 
@@ -159,20 +171,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# gupy bashrc
-
-export PATH="$HOME/dev/gupy-dev-cli:$PATH"
-
-## vpn
-alias fix-vpn="sudo /sbin/ip route delete 172.28.0.0/16"
-alias run-vpn='sudo openvpn --config ~/dev/taylon_assis.ovpn --askpass /etc/openvpn/gupy-vpn-secret.txt'
-
-## cloud-sql niduu
-alias sql-niduu='~/dev/scripts/cloud-sql-proxy --private-ip --port 5432 workeduc-694f4:us-central1:niduu-postgres'
-
-## klnagent
-alias avstop="sudo /etc/init.d/klnagent64 stop"
-alias avstart="sudo /etc/init.d/klnagent64 start"
 
 # nvm auto configure
 
@@ -220,3 +218,5 @@ cdnvm() {
 
 alias cd='cdnvm'
 cdnvm "$PWD" || exit
+
+export UID_GID=1000:1000

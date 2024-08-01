@@ -36,14 +36,15 @@ end
 local function on_attach(bufnr)
   local api = require "nvim-tree.api"
 
+  local function opts(desc)
+    return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
   api.config.mappings.default_on_attach(bufnr)
 
-  local opts = { noremap = true, silent = true }
-
-  vim.keymap.set("n", "l", edit_or_open, opts)
-  vim.keymap.set("n", "L", vsplit_preview, opts)
-  vim.keymap.set("n", "h", nvim_tree_api.tree.close, opts)
-  vim.keymap.set("n", "H", nvim_tree_api.tree.collapse_all, opts)
+  vim.keymap.set("n", "l", edit_or_open, opts(''))
+  vim.keymap.set("n", "L", vsplit_preview, opts(''))
+  vim.keymap.set("n", "h", nvim_tree_api.tree.close, opts(''))
+  vim.keymap.set("n", "H", nvim_tree_api.tree.collapse_all, opts("Collapse All"))
 end
 
 nvim_tree.setup {
@@ -80,4 +81,3 @@ nvim_tree.setup {
     }
   }
 }
-

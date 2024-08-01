@@ -53,7 +53,6 @@ keymap("v", "p", '"_dP', opts)
 
 -- Visual Block --
 -- Move text up and down
-keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
@@ -81,7 +80,12 @@ vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
 vim.keymap.set("n", "<leader>x", ":NvimTreeToggle<CR>", opts)
 
 -- DAP
-keymap("n", "<leader>dt", ":DapUiToggle<CR>" ,opts)
-keymap("n", "<leader>db", ":DapToggleBreakpoint<CR>" ,opts)
-keymap("n", "<leader>dc", ":DapContinue<CR>" ,opts)
-keymap("n", "<leader>dr", ":lua require('dapui').open({ reset = true })<CR>" ,opts)
+keymap("n", "<leader>dt", ":DapUiToggle<CR>", opts)
+keymap("n", "<leader>b", ":DapToggleBreakpoint<CR>", opts)
+keymap("n", "<leader>c", ":DapContinue<CR>", opts)
+keymap("n", "<leader>dr", ":lua require('dapui').open({ reset = true })<CR>", opts)
+keymap("n", "<leader>di", ":lua require'dap'.repl.open()<CR>", opts)
+keymap("n", "<leader>dq", ":lua require('dapui').close()<CR>", opts)
+
+-- Format
+keymap("n", "<leader>=", "gg=G<C-o>", opts)
