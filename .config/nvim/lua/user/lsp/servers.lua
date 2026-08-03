@@ -10,10 +10,6 @@ local servers = {
   "docker_compose_language_service"
 }
 
-lsp.setup({
-  ensured_installed = servers
-})
-
 local settings = {
   ui = {
     border = "none",
@@ -26,6 +22,12 @@ local settings = {
   log_level = vim.log.levels.INFO,
   max_concurrent_installers = 4,
 }
+
+require("mason").setup(settings)
+require("mason-lspconfig").setup({
+  ensure_installed = servers,
+  automatic_installation = true,
+})
 
 local opts = {}
 
@@ -42,7 +44,7 @@ for _, server in pairs(servers) do
     opts = vim.tbl_deep_extend("force", conf_opts, opts)
   end
 
-  lsp.config(server, opts)
+  lsp.config[server] = opts
   lsp.enable(server)
 end
 

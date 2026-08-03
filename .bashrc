@@ -125,11 +125,17 @@ fi
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH="$HOME/.tfenv/bin:$PATH"
 export PATH="/usr/java/jre1.8.0_361/bin:$PATH"
-export PATH="/usr/local/lib:$PATH"
+export PATH="/usr/local/lib:/usr/local/bin:$PATH"
 export PATH="/home/taylon/bin:$PATH"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:/opt/nvim-linux64/bin"
+export PATH="$HOME/.tfenv/bin:$PATH"
+export PATH="/usr/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 
+# sudo ln -s /snap/k9s/current/bin/k9s /snap/bin/k9s
 # sudo 
 alias sudo='sudo env PATH=$PATH'
 export SUDO_ASKPASS=/usr/bin/ssh-askpass
@@ -155,6 +161,9 @@ alias v="nvim"
 alias vc="cd ~/.config/nvim && v"
 alias sv="sudoedit"
 
+## keybindings
+bind '"\C-f":"~/.local/scripts/tmux-sessionizer\n"'
+
 # hardware
 
 ## function keys to keychron k3
@@ -164,6 +173,9 @@ alias fnmode='echo 0 | sudo tee /sys/module/hid_apple/parameters/fnmode'
 # nodejs
 
 alias npmpublic='npm set registry https://registry.npmjs.org/'
+
+## fzf completions
+eval "$(fzf --bash)"
 
 ## nvm
 
@@ -220,3 +232,19 @@ alias cd='cdnvm'
 cdnvm "$PWD" || exit
 
 export UID_GID=1000:1000
+
+
+# Created by `pipx` on 2025-01-31 14:31:01
+export PATH="$PATH:/home/tay/.local/bin"
+
+# pnpm
+export PNPM_HOME="/home/tay/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
+# pnpm end
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - bash)"

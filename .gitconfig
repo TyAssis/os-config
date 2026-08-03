@@ -1,0 +1,21 @@
+[user]
+	name = TyAssis
+	email = tyassis3@gmail.com
+[core]
+	editor = nvim
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[alias]
+  st    = status
+  ck    = checkout
+  cm    = commit -m
+  pl    = pull
+  ps    = push
+  ln    = log --oneline
+  cae   = commit --amend
+  ca    = commit --amend --no-edit
+  empty = commit --allow-empty

@@ -17,10 +17,10 @@ end
 
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
 vim.cmd [[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins*.lua source <afile> | PackerSync
-  augroup end
+augroup packer_user_config
+autocmd!
+autocmd BufWritePost plugins*.lua source <afile> | PackerSync
+augroup end
 ]]
 
 -- Use a protected call so we don't error out on first use
@@ -47,6 +47,7 @@ return packer.startup(function(use)
 
   -- Color Scheme
   use "Mofiqul/dracula.nvim"
+  use { "catppuccin/nvim", as = "catppuccin" }
 
   -- cmp plugins
   use "hrsh7th/nvim-cmp" -- The completion plugin
@@ -64,9 +65,9 @@ return packer.startup(function(use)
   -- LSP
   use "neovim/nvim-lspconfig"
   use "williamboman/mason.nvim" -- simple to use language server installer
-  use "williamboman/mason-lspconfig.nvim" -- simple to use language server installer
+  use "mason-org/mason-lspconfig.nvim"
   use "jay-babu/mason-nvim-dap.nvim"
-  use "jose-elias-alvarez/null-ls.nvim" -- LSP diagnostics and code actions
+  -- use "jose-elias-alvarez/null-ls.nvim" -- LSP diagnostics and code actions
 
   -- Telescope
   use "nvim-telescope/telescope.nvim"
@@ -75,15 +76,17 @@ return packer.startup(function(use)
   -- Treesitter
   use {
     "nvim-treesitter/nvim-treesitter",
+    lazy = false,
+    branch = 'main',
     run = ":TSUpdate",
   }
 
   -- Tree
   use {
     'nvim-tree/nvim-tree.lua',
-     requires = {
+    requires = {
       'nvim-tree/nvim-web-devicons',
-     },
+    },
   }
 
   -- DAP
@@ -98,6 +101,30 @@ return packer.startup(function(use)
         auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/"},
       }
     end
+  }
+
+  use {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = function()
+      require("nvim-autopairs").setup {}
+    end
+  }
+
+  use {
+    "tpope/vim-fugitive"
+  }
+
+  use {
+    "folke/snacks.nvim",
+  }
+
+  use {
+    "coder/claudecode.nvim",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "folke/snacks.nvim",
+    },
   }
 
   -- Automatically set up your configuration after cloning packer.nvim

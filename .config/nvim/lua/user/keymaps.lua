@@ -24,7 +24,14 @@ keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
+keymap("n", "<C-n>", ":vsp <CR>", opts)
 
+-- Better scrolling
+keymap("n", "J", "mzJ`z", opts)
+keymap("n", "<C-d>", "<C-d>zz", opts)
+keymap("n", "<C-u>", "<C-u>zz", opts)
+keymap("n", "n", "nzzzv", opts)
+keymap("n", "N", "Nzzzv", opts)
 
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize +2<CR>", opts)
@@ -35,6 +42,12 @@ keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 -- Navigate buffers
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
+
+-- Yank and Put
+-- Copy and paste to other programs
+keymap("v", "<C-y>", '"+y', opts)
+keymap("n", "<C-p>", '"+P', opts)
+keymap("v", "<C-p>", '"+P', opts)
 
 -- Insert --
 -- Press jk fast to enter
@@ -71,7 +84,7 @@ keymap("n", "<C-s>", ":w<CR>", opts)
 -- Telescope
 -- keymap("n", "<leader>f", "<cmd>Telescope find_files<cr>", opts)
 keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", opts)
-keymap("n", "<c-t>", "<cmd>Telescope live_grep<cr>", opts)
+keymap("n", "<leader>g", "<cmd>Telescope live_grep<cr>", opts)
 
 -- LSP
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
@@ -89,3 +102,25 @@ keymap("n", "<leader>dq", ":lua require('dapui').close()<CR>", opts)
 
 -- Format
 keymap("n", "<leader>=", "gg=G<C-o>", opts)
+
+
+-- Claude Code
+keymap("n", "<leader>ac", ":ClaudeCode<CR>", opts)                -- Toggle Claude
+keymap("n", "<leader>af", ":ClaudeCodeFocus<CR>", opts)           -- Focus Claude
+keymap("n", "<leader>ar", ":ClaudeCode --resume<CR>", opts)       -- Resume Claude
+keymap("n", "<leader>aC", ":ClaudeCode --continue<CR>", opts)     -- Continue Claude
+keymap("n", "<leader>am", ":ClaudeCodeSelectModel<CR>", opts)     -- Select model
+keymap("n", "<leader>ab", ":ClaudeCodeAdd %<CR>", opts)           -- Add current buffer
+
+-- Visual mode
+keymap("v", "<leader>as", ":ClaudeCodeSend<CR>", opts)            -- Send selection
+
+-- File-tree / explorer integrations
+-- NOTE: vim.keymap.set does NOT support ft-scoped mappings directly.
+-- If you need filetype-specific behavior, wrap these in autocmds.
+
+keymap("n", "<leader>as", ":ClaudeCodeTreeAdd<CR>", opts)         -- Add file from tree
+
+-- Diff management
+keymap("n", "<leader>aa", ":ClaudeCodeDiffAccept<CR>", opts)      -- Accept diff
+keymap("n", "<leader>ad", ":ClaudeCodeDiffDeny<CR>", opts)        -- Deny diff

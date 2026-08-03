@@ -1,9 +1,25 @@
-local configs = require("nvim-treesitter.configs")
+local treesitter = require("nvim-treesitter")
 
-configs.setup {
-  ensure_installed = "all",
-  sync_install = false,
-  ignore_install = { "" }, -- List of parsers to ignore installing
+treesitter.install({
+    "bash",
+    "go",
+    "gomod",
+    "gosum",
+    "lua",
+    "javascript",
+    "json",
+    "markdown",
+    "python",
+    "query",
+    "typescript",
+    "vim",
+    "vimdoc",
+    "yaml",
+  })
+
+
+-- check if those config still work on nvim 0.11
+treesitter.setup {
   highlight = {
     enable = true, -- false will disable the whole extension
     disable = { "" }, -- list of language that will be disabled
